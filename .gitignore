@@ -26,18 +26,18 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Large media files (videos)
-/public/video/
-*.mp4
-*.mov
-*.avi
+# Large media files (videos) - Commented out for deployment
+# /public/video/
+# *.mp4
+# *.mov
+# *.avi
 
-# Large PDF files (keep only essential CV)
-/public/certificates/*.pdf
-/public/CV/*.pdf
+# Large PDF files - Commented out for deployment (needed for certifications and CV)
+# /public/certificates/*.pdf
+# /public/CV/*.pdf
 
-# Large image folders (optional - can be added later if needed)
-/public/ONCF/
+# Large image folders - Commented out for deployment (needed for ONCF project)
+# /public/ONCF/
 
 # Lock files (keep only one)
 pnpm-lock.yaml
