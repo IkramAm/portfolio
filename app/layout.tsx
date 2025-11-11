@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description:
     "Portfolio d'Ikram AMZIL - Ingénieure informatique spécialisée en développement Full Stack et Intelligence Artificielle",
   generator: "v0.app",
+  icons: {
+    icon: "/icon.jpg",
+    shortcut: "/icon.jpg",
+    apple: "/icon.jpg",
+  },
 }
 
 export default function RootLayout({
