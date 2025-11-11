@@ -122,7 +122,12 @@ export function ProjectsSection() {
         "/certificat orange.jpg",
         "/dashboard admin orange.jpg",
       ],
-      video: "/video/ODC Learning - Google Chrome 2025-07-16 22-45-11.mp4",
+      // Remplacez par l'URL Vercel Blob, Cloudinary ou YouTube après upload
+      // Exemple Vercel Blob: "https://[store-id].public.blob.vercel-storage.com/video-name.mp4"
+      // Exemple Cloudinary: "https://res.cloudinary.com/[cloud-name]/video/upload/video-name.mp4"
+      // Exemple YouTube: "https://www.youtube.com/watch?v=VIDEO_ID"
+      video: "https://bwcypjmqjdwz1fcd.public.blob.vercel-storage.com/ODC%20Learning%20-%20Google%20Chrome%202025-07-16%2022-45-11.mp4",
+ // ⚠️ À remplacer par URL externe
     },
     {
       title: "Système de Gestion des Engins - ONCF",
@@ -166,7 +171,12 @@ export function ProjectsSection() {
         "/mywallet/obj financiers mywallet.png",
         "/mywallet/liste des courses mywallet.png",
       ],
-      video: "/video/MyWallet - Accueil - Google Chrome 2025-02-19 17-48-40.mp4",
+      // Remplacez par l'URL Vercel Blob, Cloudinary ou YouTube après upload
+      // Exemple Vercel Blob: "https://[store-id].public.blob.vercel-storage.com/video-name.mp4"
+      // Exemple Cloudinary: "https://res.cloudinary.com/[cloud-name]/video/upload/video-name.mp4"
+      // Exemple YouTube: "https://www.youtube.com/watch?v=VIDEO_ID"
+      video: "https://bwcypjmqjdwz1fcd.public.blob.vercel-storage.com/MyWallet%20-%20Accueil%20-%20Google%20Chrome%202025-02-19%2017-48-40.mp4",
+      // ⚠️ À remplacer par URL externe
     },
   ]
 
@@ -255,15 +265,36 @@ export function ProjectsSection() {
                       <h4 className="font-semibold text-lg">Démonstration vidéo</h4>
                     </div>
                     <div className="relative w-full rounded-lg overflow-hidden bg-muted border border-border shadow-sm">
-                      <video
-                        src={selectedProject.video}
-                        className="w-full h-auto"
-                        controls
-                        preload="metadata"
-                        style={{ maxHeight: "600px" }}
-                      >
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                      </video>
+                      {selectedProject.video.includes('youtube.com') || selectedProject.video.includes('youtu.be') ? (
+                        // YouTube video
+                        <div className="relative w-full" style={{ paddingBottom: '56.25%', height: 0 }}>
+                          <iframe
+                            className="absolute top-0 left-0 w-full h-full"
+                            src={
+                              selectedProject.video.includes('youtu.be')
+                                ? `https://www.youtube.com/embed/${selectedProject.video.split('/').pop()}`
+                                : selectedProject.video.includes('watch?v=')
+                                ? `https://www.youtube.com/embed/${selectedProject.video.split('v=')[1]?.split('&')[0]}`
+                                : selectedProject.video
+                            }
+                            title="Video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            style={{ maxHeight: "600px" }}
+                          />
+                        </div>
+                      ) : (
+                        // Direct video URL (Vercel Blob, Cloudinary, etc.)
+                        <video
+                          src={selectedProject.video}
+                          className="w-full h-auto"
+                          controls
+                          preload="metadata"
+                          style={{ maxHeight: "600px" }}
+                        >
+                          Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                      )}
                     </div>
                   </div>
                 )}
