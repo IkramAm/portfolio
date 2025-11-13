@@ -65,7 +65,7 @@ export function HeroSection() {
               <Github className="w-6 h-6" />
             </a>
             <a
-              href="https://linkedin.com/in/ikram-amzil"
+              href="https://www.linkedin.com/in/ikram-amzil-552a871ba/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"

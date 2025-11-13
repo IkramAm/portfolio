@@ -232,7 +232,7 @@ export default function CVPage() {
                     </a>
 
                     <a
-                      href="https://linkedin.com/in/ikram-amzil"
+                      href="https://www.linkedin.com/in/ikram-amzil-552a871ba/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-3 p-4 rounded-lg bg-background/50 border border-border hover:border-primary/50 transition-colors group"
