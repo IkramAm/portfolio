@@ -7,6 +7,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
 import { ExternalLink, Github, Play } from "lucide-react"
 
+/** Démo GoCard (mp4 ou YouTube). Renseignez l’URL ici ou via `NEXT_PUBLIC_GOCARD_DEMO_VIDEO_URL` dans `.env.local` (la constante ci-dessous prime sur l’env). */
+const GOCARD_DEMO_VIDEO_MANUAL = ""
+const GOCARD_DEMO_VIDEO_URL =
+  GOCARD_DEMO_VIDEO_MANUAL.trim() ||
+  (typeof process !== "undefined" ? process.env.NEXT_PUBLIC_GOCARD_DEMO_VIDEO_URL?.trim() : undefined) ||
+  undefined
+
 interface Project {
   title: string
   description: string
@@ -14,12 +21,23 @@ interface Project {
   technologies: string[]
   image: string
   images?: string[]
+  /** Chemins d’images (captures téléphone) : affichage centré, `object-contain`, sans scroll interne */
+  mobileScreenshotImages?: string[]
   video?: string
   github?: string
   demo?: string
 }
 
-function CarouselWithDots({ images, title }: { images: string[]; title: string }) {
+function CarouselWithDots({
+  images,
+  title,
+  mobileScreenshotImages,
+}: {
+  images: string[]
+  title: string
+  mobileScreenshotImages?: string[]
+}) {
+  const mobileSet = new Set(mobileScreenshotImages ?? [])
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
@@ -53,18 +71,32 @@ function CarouselWithDots({ images, title }: { images: string[]; title: string }
     >
       <Carousel setApi={setApi} className="w-full" opts={{ loop: true }}>
         <CarouselContent className="-ml-0">
-          {images.map((img, index) => (
-            <CarouselItem key={index} className="pl-0">
-              <div className="relative w-full max-h-[70vh] rounded-lg overflow-y-auto overflow-x-hidden border border-border bg-muted/10 custom-scrollbar">
-                <img
-                  src={img || "/placeholder.svg"}
-                  alt={`${title} - Image ${index + 1}`}
-                  className="w-full h-auto block"
-                  loading="lazy"
-                />
-              </div>
-            </CarouselItem>
-          ))}
+          {images.map((img, index) => {
+            const isMobileCapture = mobileSet.has(img)
+            return (
+              <CarouselItem key={index} className="pl-0">
+                {isMobileCapture ? (
+                  <div className="relative flex min-h-[260px] w-full max-h-[min(78vh,820px)] items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/10 px-2 py-5 sm:py-6">
+                    <img
+                      src={img || "/placeholder.svg"}
+                      alt={`${title} - Image ${index + 1}`}
+                      className="h-auto max-h-[min(78vh,820px)] w-auto max-w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative w-full max-h-[70vh] rounded-lg overflow-y-auto overflow-x-hidden border border-border bg-muted/10 custom-scrollbar">
+                    <img
+                      src={img || "/placeholder.svg"}
+                      alt={`${title} - Image ${index + 1}`}
+                      className="block h-auto w-full"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+              </CarouselItem>
+            )
+          })}
         </CarouselContent>
       </Carousel>
 
@@ -103,6 +135,95 @@ export function ProjectsSection() {
 
   const projects: Project[] = [
     {
+      title: "GoCard — Plateforme SaaS cartes NFC et profils digitaux",
+      description:
+        "Solution Saas complète pour cartes NFC intelligentes, avec profils personnalisables",
+      longDescription: [
+        "GoCard permet aux professionnels de partager leur identité digitale en un seul geste. L'application permet de créer un profil interactif personnalisé incluant coordonnées, réseaux sociaux, services, portfolio, liens professionnels et informations dynamiques accessibles via scan NFC ou QR code.",
+        "J'ai participé à la conception complète de la solution, du backend au frontend, en développant l'espace utilisateur ainsi qu'un panneau d'administration centralisé. Le système permet la gestion des comptes, commandes, ventes, statistiques, messages clients, ainsi que le suivi global de l'activité de la plateforme.",
+        "Le projet inclut également le déploiement en production, la gestion Docker, la configuration serveur, l'intégration de dashboards analytiques et l'optimisation de l'expérience utilisateur afin de soutenir l'évolution commerciale du produit.",
+      ],
+      technologies: [
+        "MongoDB",
+        "Express.js",
+        "React",
+        "Node.js",
+        "TypeScript",
+        "Vite",
+        "Tailwind CSS",
+        "Docker",
+        "Dokploy",
+        "Cloudflare",
+        "Contabo",
+        "JWT",
+        "Spline",
+        "Figma",
+        "NFC Integration",
+      ],
+      image: "/GOCARD/gocard-landing.png",
+      images: [
+        "/GOCARD/gocard-landing.png",
+        "/GOCARD/gocard-profileLogin.jpeg",
+        "/GOCARD/gocard-profile.jpeg",
+        "/GOCARD/gocard-profilePublicLinkEdit.jpeg",
+        "/GOCARD/gocard-costumizedStep1.png",
+        "/GOCARD/gocard-costumizedStep2.png",
+        "/GOCARD/gocard-adminOrders.png",
+      ],
+      mobileScreenshotImages: [
+        "/GOCARD/gocard-profile.jpeg",
+        "/GOCARD/gocard-profileLogin.jpeg",
+        "/GOCARD/gocard-profilePublicLinkEdit.jpeg",
+      ],
+      ...(GOCARD_DEMO_VIDEO_URL ? { video: GOCARD_DEMO_VIDEO_URL } : {}),
+      demo: "https://mygocard.ma/",
+    },
+    {
+      title: "BXPROD — Plateforme web corporate agence audiovisuelle",
+      description:
+        "Site corporate pour présenter les activités d’une agence de production audiovisuelle",
+      longDescription: [
+        "BXPROD est une plateforme web corporate conçue pour présenter les activités d’une agence spécialisée en production audiovisuelle et expériences immersives. Le site met en valeur les réalisations de l’entreprise : films institutionnels, publicités, captation drone, animation 3D, visites virtuelles et contenus visuels destinés à la communication professionnelle.",
+        "J’ai développé l’interface utilisateur complète en mettant l’accent sur la fluidité de navigation, l’expérience visuelle et la valorisation des médias. Une attention particulière a été portée au responsive design, à la performance d’affichage et à la mise en avant du portfolio client.",
+        "J’ai également intégré un système automatisé de réception des demandes via le formulaire de contact : chaque message envoyé est traité automatiquement et stocké dans un Google Sheet via Google Apps Script, permettant un suivi simplifié des prospects.",
+      ],
+      technologies: [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Tailwind CSS",
+        "Google Apps Script",
+        "Google Sheets",
+        "Figma",
+      ],
+      image: "/BXPROD/bxprod-landing.png",
+      images: ["/BXPROD/bxprod-landing.png", "/BXPROD/bxprod-contactUs.png"],
+      demo: "https://bxprod.com/",
+    },
+    {
+      title: "Indoor Navigation — Prototype démo Technopark",
+      description:
+        "Prototype de navigation indoor immersive pour espaces professionnels (Matterport, visite virtuelle enrichie)",
+      longDescription: [
+        "Prototype réalisé pour Technopark.",
+        "Ce projet est un prototype de démonstration développé pour présenter une solution de navigation indoor immersive à destination d'espaces professionnels. L'objectif était de proposer une expérience interactive permettant aux utilisateurs de se déplacer virtuellement dans un bâtiment grâce à des captures 3D immersives et des points de navigation intelligents.",
+        "J'ai conçu l'application de démonstration en intégrant les espaces numérisés via Matterport, puis en développant la logique de navigation entre les zones et l'interface permettant d'interagir avec les différents emplacements.",
+        "Le prototype servait de support commercial pour présenter au client une solution de visite virtuelle enrichie, combinant orientation spatiale, exploration d'espaces et expérience immersive.",
+      ],
+      technologies: [
+        "Python",
+        "Django",
+        "Matterport",
+        "Virtual Tour",
+        "Indoor Navigation",
+        "Interactive Mapping",
+        "3D Experience",
+      ],
+      image: "/Indoor Navigation/indoorNav-1.png",
+      images: ["/Indoor Navigation/indoorNav-1.png", "/Indoor Navigation/indoorNav-2.png"],
+      demo: "https://technopark.vrboostagency.com/",
+    },
+    {
       title: "Plateforme E-Learning LMS - Orange Maroc",
       description: "Application complète type Coursera avec gestion des rôles et chatbot IA",
       longDescription: [
@@ -127,7 +248,7 @@ export function ProjectsSection() {
       // Exemple Cloudinary: "https://res.cloudinary.com/[cloud-name]/video/upload/video-name.mp4"
       // Exemple YouTube: "https://www.youtube.com/watch?v=VIDEO_ID"
       video: "https://bwcypjmqjdwz1fcd.public.blob.vercel-storage.com/ODC%20Learning%20-%20Google%20Chrome%202025-07-16%2022-45-11.mp4",
- // ⚠️ À remplacer par URL externe
+      demo: "https://odc-learning.com/",
     },
     {
       title: "Système de Gestion des Engins - ONCF",
@@ -248,7 +369,11 @@ export function ProjectsSection() {
               <div className="space-y-6">
                 {/* Carrousel d'images */}
                 {selectedProject.images && selectedProject.images.length > 0 ? (
-                  <CarouselWithDots images={selectedProject.images} title={selectedProject.title} />
+                  <CarouselWithDots
+                    images={selectedProject.images}
+                    title={selectedProject.title}
+                    mobileScreenshotImages={selectedProject.mobileScreenshotImages}
+                  />
                 ) : (
                 <img
                   src={selectedProject.image || "/placeholder.svg"}

@@ -7,6 +7,88 @@ export function ExperienceSection() {
   const experiences = [
     {
       type: "work",
+      project: "Projet 1 — GoCard",
+      title: "Stage pré-embauche – Ingénieure Logicielle Full Stack MERN",
+      company: "VR Boost Agency",
+      location: "Casablanca",
+      period: "Mars 2026 – Présent",
+      url: "https://mygocard.ma/",
+      description: [
+        "Conception, développement et déploiement de la plateforme SaaS GoCard dédiée aux cartes NFC intelligentes et profils digitaux personnalisés.",
+        "Développement de l'espace utilisateur permettant la gestion de profils, liens, réseaux sociaux, médias et personnalisation de cartes digitales.",
+        "Implémentation d'un espace administrateur avec gestion des utilisateurs, commandes, ventes, statistiques, messages et suivi global de la plateforme.",
+        "Mise en place des APIs sécurisées, tableaux de bord analytiques, authentification et déploiement Docker en production.",
+        "Participation à l'évolution produit, optimisation UX et intégration de nouvelles fonctionnalités business.",
+      ],
+      technologies: [
+        "MongoDB",
+        "Express.js",
+        "React",
+        "Node.js",
+        "TypeScript",
+        "Vite",
+        "Tailwind CSS",
+        "Docker",
+        "Dokploy",
+        "Contabo",
+        "Cloudflare",
+        "JWT",
+        "NFC",
+        "Spline",
+        "Figma",
+      ],
+    },
+    {
+      type: "work",
+      project: "Projet 2 — BXPROD",
+      title: "Stage pré-embauche – Ingénieure Logicielle Full Stack",
+      company: "VR Boost Agency",
+      location: "Casablanca",
+      period: "Février 2026",
+      url: "https://bxprod.com/",
+      description: [
+        "Développement du site web corporate BXPROD dédié à la présentation de productions audiovisuelles et services immersifs.",
+        "Conception d'interfaces interactives pour la valorisation des réalisations : films, publicités, drone, animation 3D et visites virtuelles.",
+        "Automatisation de la gestion du formulaire de contact avec stockage des demandes dans Google Sheets via Google Apps Script.",
+        "Optimisation de l'expérience utilisateur, intégration responsive et mise en ligne.",
+      ],
+      technologies: [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Tailwind CSS",
+        "Google Apps Script",
+        "Google Sheets",
+        "Figma",
+      ],
+    },
+    {
+      type: "work",
+      project: "Projet 3 — Technopark Demo",
+      title: "Stage pré-embauche – Ingénieure Logicielle Full Stack Python",
+      company: "VR Boost Agency",
+      location: "Casablanca",
+      period: "Janvier 2026",
+      url: "http://technopark.vrboostagency.ma/",
+      linkLabel: "Voir la démo",
+      description: [
+        "Développement d'un prototype de navigation indoor immersive pour démonstration client Technopark.",
+        "Conception d'une application de visite virtuelle interactive avec parcours guidé et navigation entre espaces internes.",
+        "Intégration d'environnements immersifs 3D à partir de captures spatiales et modélisation d'expérience utilisateur.",
+        "Développement du prototype fonctionnel pour présentation et validation avant lancement.",
+      ],
+      technologies: [
+        "Python",
+        "Django",
+        "Matterport",
+        "Virtual Tour",
+        "Indoor Navigation",
+        "3D Mapping",
+        "Interactive Experience",
+      ],
+    },
+    {
+      type: "work",
       title: "Stage de fin d'études – Ingénieure Logicielle Full Stack MERN",
       company: "Orange Maroc",
       location: "Casablanca",
@@ -99,6 +181,9 @@ export function ExperienceSection() {
                 <div className="bg-card border border-border rounded-lg p-6 hover:border-primary transition-colors">
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                     <div>
+                      {"project" in exp && exp.project ? (
+                        <p className="text-sm font-semibold text-primary mb-1.5">{exp.project}</p>
+                      ) : null}
                       <h3 className="text-xl font-semibold mb-2">{exp.title}</h3>
                       <p className="text-primary font-medium">
                         {exp.company} · {exp.location}
@@ -138,7 +223,7 @@ export function ExperienceSection() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-primary hover:text-secondary transition-colors font-medium text-sm"
                     >
-                      <span>Voir l'application</span>
+                      <span>{exp.linkLabel ?? "Voir l'application"}</span>
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   )}

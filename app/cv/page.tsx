@@ -82,8 +82,8 @@ export default function CVPage() {
 
   const handleDownloadCV = () => {
     const link = document.createElement("a")
-    link.href = "/cv-ikram-amzil.pdf"
-    link.download = "CV-Ikram-AMZIL.pdf"
+    link.href = "/CV%20Ikram%20AMZIL.pdf"
+    link.download = "CV Ikram AMZIL.pdf"
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
@@ -260,6 +260,65 @@ export default function CVPage() {
               </div>
 
               <div className="space-y-6">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 hover:border-primary/50 transition-all"
+                >
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
+                    <div>
+                      <h3 className="text-xl font-semibold text-primary">
+                        Stage pré-embauche – Ingénieure logicielle Full Stack
+                      </h3>
+                      <p className="text-muted-foreground font-medium">VR Boost Agency – Casablanca</p>
+                    </div>
+                    <span className="text-sm text-muted-foreground whitespace-nowrap">Janv. 2026 – Présent</span>
+                  </div>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">▹</span>
+                      <span>
+                        <span className="font-medium text-foreground">GoCard</span> — plateforme SaaS (MERN) pour
+                        cartes NFC et profils digitaux : espaces utilisateur & admin, APIs sécurisées, analytics et
+                        déploiement Docker.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">▹</span>
+                      <span>
+                        <span className="font-medium text-foreground">BXPROD</span> — site corporate audiovisuel &
+                        immersif (React, Vite), formulaire relié à Google Sheets via Google Apps Script.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">▹</span>
+                      <span>
+                        <span className="font-medium text-foreground">Technopark Demo</span> — prototype Python /
+                        Django de visite virtuelle indoor (Matterport), navigation et démonstration client.
+                      </span>
+                    </li>
+                  </ul>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {[
+                      "MongoDB",
+                      "Express.js",
+                      "React",
+                      "Node.js",
+                      "TypeScript",
+                      "Vite",
+                      "Tailwind CSS",
+                      "Python",
+                      "Django",
+                      "Docker",
+                      "Matterport",
+                      "Google Apps Script",
+                    ].map((tech) => (
+                      <span key={tech} className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 hover:border-primary/50 transition-all"

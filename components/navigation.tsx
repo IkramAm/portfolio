@@ -32,8 +32,8 @@ export function Navigation() {
   const handleDownloadCV = () => {
     // This will trigger the download of the actual CV PDF
     const link = document.createElement("a")
-    link.href = "/cv-ikram-amzil.pdf"
-    link.download = "CV-Ikram-AMZIL.pdf"
+    link.href = "/CV%20Ikram%20AMZIL.pdf"
+    link.download = "CV Ikram AMZIL.pdf"
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
